@@ -1,5 +1,5 @@
 # RA-SWAPI: May the front be with you
-----
+
 ## A React Application prepared to consume SWAPI data
 
 <img src="./src/common/images/svg/yoda.svg" alt="Yoda" width="200px">
