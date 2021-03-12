@@ -30,4 +30,4 @@ Jest and Enzyme have been used with testing purpose in both sides:
 ### Local Setup
 * **Installation:** for project installation it has been user _Yarn_. To install package dependencies please run the following command : `yarn install --pure-lockfile`.
 * **Run:** to run project locally please run the following command: `yarn start:dev-server`.
-* **Test:** to run test suites please run following command: `yarn test.
+* **Test:** to run test suites please run following command: `yarn test`.
