@@ -1,7 +1,6 @@
 # RA-SWAPI
 ----
 ## A React Application prepared to consume SWAPI data
-React Application prepared to consume SWAPI data
 <div style="width: 50%; margin: 0 auto; border: 1px solid rgba(0,0,0,0.5); border-radius: 0.5rem; background-color: rgba(0,0,0,0.25);color:#fff; display:flex; flex-direction: column; align-items: center">
 <img src="./src/common/images/svg/yoda.svg" alt="Yoda" width="200px">
 <p>May the front be with you</p>
