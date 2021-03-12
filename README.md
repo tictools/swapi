@@ -6,6 +6,7 @@ React Application prepared to consume SWAPI data
 <img src="./src/common/images/svg/yoda.svg" alt="Yoda" width="200px">
 <p>May the front be with you</p>
 </div>
+
 ### Abstract
 RA-SWAPI has been designed from scratch as a SPA based on the following stack:
 * **webpack** as module bundler 
