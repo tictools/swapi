@@ -11,17 +11,17 @@ describe('CategoryList', () => {
     }
 
     const mockedBaseProps = {
-        title: 'foo',
+        title: 'RAPPSWAPI',
         children: 'children'
     }
 
     test('should render all elements properly', () => {
         const wrapper = shallow(<CategoryList {...mockedBaseProps}/>)
         const header = wrapper.find('h2')
-        const list = wrapper.find('ul')
+        const container = wrapper.find('div')
 
         expect(header).toHaveLength(EXPECTED.LENGTH)
-        expect(list).toHaveLength(EXPECTED.LENGTH)
-        expect(list.hostNodes().exists()).toBeTruthy()
+        expect(container).toHaveLength(EXPECTED.LENGTH)
+        expect(container.hostNodes().exists()).toBeTruthy()
     })
 })

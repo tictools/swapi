@@ -9,6 +9,6 @@ export const filterArrayByName = (filter, data) => {
         return (
             item[key]
                 .toLowerCase()
-                .includes(filter))
+                .includes(filter.toLowerCase()))
     })
 }
