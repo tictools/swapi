@@ -11,7 +11,7 @@ const App = () => {
         <div className={styles['container']}>
             <Router >
                 <Route  path={ROUTES.HOME}>
-                    <MainHeader title={DEFAULT_STRING.HEADER}/>
+                    <MainHeader title={DEFAULT_STRING.APP}/>
                 </Route>
                 <Switch>
                     <Route path={ROUTES.HOME} exact>
