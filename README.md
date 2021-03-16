@@ -1,4 +1,4 @@
-# RA-SWAPI: May the front be with you
+# RAPPSWAPI: May the front be with you
 
 ## A React Application prepared to consume SWAPI data
 
