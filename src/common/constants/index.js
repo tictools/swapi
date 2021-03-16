@@ -9,3 +9,7 @@ export {
 export {
     INITIAL_VALUE
 } from './data'
+
+export {
+    ROUTES
+} from './routes'

@@ -1,7 +1,7 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { shallow } from 'enzyme'
 import { createEnzymeAdapter } from '../../../../../test/enzyme-adapter'
-import { INITIAL_VALUE } from '../../../constants'
 import { CategoryItems } from '../category-items'
 
 createEnzymeAdapter()
@@ -23,8 +23,6 @@ describe('ItemsList', () => {
         { title: 'buzz-title', quantity: 3 }
     ]
 
-    const mockedFilteredItems = INITIAL_VALUE.LIST
-
     const mockedLabelsWithName = {
         name: 'name',
         quantity: 'quantity'
@@ -40,7 +38,13 @@ describe('ItemsList', () => {
             labels: mockedLabelsWithName
         }
         const wrapper = shallow(<CategoryItems {...mockedBaseProps}/>)
-        expect(wrapper.find('li')).toHaveLength(EXPECTED.LI_ELEMENT_LENGTH)
+        const liElement = wrapper.find('li')
+        const liElementFirstHostNode = liElement.hostNodes().at(0)
+
+        expect(liElement).toHaveLength(EXPECTED.LI_ELEMENT_LENGTH)
+        expect(liElementFirstHostNode.props().children[0].type).toEqual('p')
+        expect(liElementFirstHostNode.props().children[1].type).toEqual('p')
+        expect(liElementFirstHostNode.props().children[2].type).toEqual(Link)
     })
 
     test('should render values properly when category has TITLE key', () => {
@@ -51,9 +55,13 @@ describe('ItemsList', () => {
 
         const wrapper = shallow(<CategoryItems {...mockedPropsWithTitleKey}/>)
         const elements = wrapper.find('li')
-        expect(elements.at(0).text()).toBe('title: foo-titlequantity: 1')
-        expect(elements.at(1).text()).toBe('title: bar-titlequantity: 2')
-        expect(elements.at(2).text()).toBe('title: buzz-titlequantity: 3')
+        const firstElementLabel = elements.hostNodes().at(0).props().children[0].props.children[0]
+        const secondElementLabel = elements.hostNodes().at(1).props().children[0].props.children[0]
+        const thirdElementLabel = elements.hostNodes().at(2).props().children[0].props.children[0]
+
+        expect(firstElementLabel).toBe('title')
+        expect(secondElementLabel).toBe('title')
+        expect(thirdElementLabel).toBe('title')
     })
 
     test('should render values properly when category has NAME key', () => {
@@ -64,8 +72,12 @@ describe('ItemsList', () => {
 
         const wrapper = shallow(<CategoryItems {...mockedPropsWithNameKey}/>)
         const elements = wrapper.find('li')
-        expect(elements.at(0).text()).toBe('name: foo-namequantity: 1')
-        expect(elements.at(1).text()).toBe('name: bar-namequantity: 2')
-        expect(elements.at(2).text()).toBe('name: buzz-namequantity: 3')
+        const firstElementLabel = elements.hostNodes().at(0).props().children[0].props.children[0]
+        const secondElementLabel = elements.hostNodes().at(1).props().children[0].props.children[0]
+        const thirdElementLabel = elements.hostNodes().at(2).props().children[0].props.children[0]
+
+        expect(firstElementLabel).toBe('name')
+        expect(secondElementLabel).toBe('name')
+        expect(thirdElementLabel).toBe('name')
     })
 })

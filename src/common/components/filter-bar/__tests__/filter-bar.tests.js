@@ -52,18 +52,6 @@ describe('FilterBar', () => {
         expect(onOptionChange).toHaveBeenCalledTimes(EXPECTED.TIMES.ONE)
     })
 
-    test('should call handleInputChange when input value is chan ged', () => {
-        const wrapper = shallow(<FilterBar {...mockedBaseProps} />)
-        let inputElement = wrapper.find('input').first()
-        inputElement.simulate('change', {
-            target: { value: 'the-value' }
-        })
-
-        inputElement = wrapper.find('input').first()
-        expect(inputElement.props().value).toEqual('the-value')
-        expect(setInputValue).toHaveBeenCalled()
-    })
-
     test('should call resetInputValue when input value is changed', () => {
         const wrapper = shallow(<FilterBar {...mockedBaseProps} />)
         const buttonElement = wrapper.find('button')

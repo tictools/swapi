@@ -1,0 +1,55 @@
+@import "../../../common/styles/common.css";
+
+.detail__container {
+    width: var(--width-75);
+}
+
+
+.detail__header {
+    composes: section-header from '../../styles/section-header.css'
+}
+
+.detail__content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.detail__container-list {
+    display: flex;
+    flex-direction:  column;
+    align-items: center;
+    width: var(--width-45);
+}
+
+.detail__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: var(--width-90);
+}
+
+.detail__list--embedded{
+    list-style: inherit;
+    margin: inherit;
+    padding: inherit;
+    width: var(--width-100);
+}
+
+.detail__list-item{
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: var(--grey-10);
+    margin: .5rem 0;
+    padding: .75rem;
+    text-align: center;
+}
+
+.detail__label {
+    border-radius: 5px;
+    box-sizing: border-box;
+    width: 100%;
+    background-color: var(--grey-25);
+    padding: .5rem;
+    text-align: center;
+    text-transform: uppercase;
+}

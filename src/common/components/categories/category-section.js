@@ -6,6 +6,7 @@ import { FilterBar } from '../filter-bar/filter-bar'
 import { CategoryList } from './category-list'
 import { CategoryItems } from './category-items'
 import { Loader } from '../loader/loader'
+import styles from './category-section.css'
 
 const propTypes = {
     category: PropTypes.string.isRequired,
@@ -53,10 +54,13 @@ export class CategorySection extends React.Component {
         const [item] = prevProps.data
         const [nameKey, quantityKey] = (Object.keys(item))
         if(prevProps !== this.props){
-            this.setState({ labels:{
-                name:nameKey,
-                quantity:quantityKey
-            }})
+            this.setState({
+                labels:{
+                    name:nameKey,
+                    quantity:quantityKey
+                },
+                filteredData: INITIAL_VALUE.LIST
+            })
         }
     }
 
@@ -64,7 +68,7 @@ export class CategorySection extends React.Component {
         const { labels, filteredData } = this.state
         const { category, data, isLoading } = this.props
         return (
-            <section>
+            <section className={styles['category-section__container']}>
                 { isLoading
                     ?   <Loader/>
                     :   <CategoryList title={category}>

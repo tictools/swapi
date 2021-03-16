@@ -1,14 +1,15 @@
-.error-modal__container {
+@import "../../../common/styles/common.css";
+
+/*.error-modal__container {
     background-color: #00000033;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-    width: 100vw;
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: 1;
+}*/
+
+.error-modal__container {
+    margin-top: var(--margin-top--category-section);
+    composes: circular-modal from '../../styles/circular-modal.css';
 }
 
 .error-modal__content {

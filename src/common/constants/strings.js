@@ -1,6 +1,6 @@
 export const DEFAULT_STRING = {
     EMPTY: '',
-    HEADER: 'SWAPI',
+    HEADER: 'RAPPSWAPI',
     EMPTY_CATEGORY: 'May the search be with you',
     LOADING: 'Loading...',
     OPTION: '---'

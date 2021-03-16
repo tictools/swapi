@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import styles from './category-list.css'
 
 const propTypes = {
     title: PropTypes.string.isRequired,
@@ -15,11 +16,11 @@ const propTypes = {
  */
 export const CategoryList = ({ title, children }) => {
     return(
-        <section>
-            <h2>{title}</h2>
-            <ul>
+        <section className={styles['category-list__container']}>
+            <h2 className={styles['category-list__header']}>{title}</h2>
+            <div className={styles['category-list__list']}>
                 {children}
-            </ul>
+            </div>
         </section>
     )
 }

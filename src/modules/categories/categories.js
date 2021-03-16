@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { SelectBarCategory } from '../../common/components'
 import { CategorySection, CategorySectionEmpty, ErrorModal } from '../../common/components'
-import { INITIAL_VALUE, BASE_URL } from '../../common/constants'
-import { fetchData, formatDataFromArray } from '../../common/helpers'
+import { useFetchCategory } from '../../common/hooks/use-fetch-category'
+import styles from './categories.css'
 
 /**
  * Functional component that renders the full view for category section
@@ -10,37 +10,24 @@ import { fetchData, formatDataFromArray } from '../../common/helpers'
  * @returns {JSX.Element}
  */
 export const Categories = () => {
-    const [items, setItems] = useState(INITIAL_VALUE.LIST)
     const [category, setCategory] = useState(null)
-    const [isLoading, setIsLoading] = useState(false)
-    const [hasError, setHasError] = useState(false)
-
-    useEffect(() => {
-        setIsLoading(true)
-        !!category && fetchData(BASE_URL, category, undefined)
-            .then(data => {
-                const formattedData = formatDataFromArray(data)
-                setItems(formattedData)
-                setHasError(false)
-                setIsLoading(false)
-            })
-            .catch(errorResponse => {
-                setHasError(true)
-            })
-    }, [category])
-
+    const { items, isLoading, error } = useFetchCategory(category)
     const handleCategory = category => setCategory(category)
 
-    const onCloseErrorModal = () => setHasError(false)
-
     return(
-        <div>
-            <SelectBarCategory handleCategorySearch={handleCategory}/>
+        <div className={styles['categories__container']}>
+            <SelectBarCategory handleCategorySearch={handleCategory}
+            />
             {!!items.length
-                ? <CategorySection category={category} data={items} isLoading={isLoading}/>
-                : <CategorySectionEmpty/>
+                ? <CategorySection
+                    category={category}
+                    data={items}
+                    isLoading={isLoading}
+                />
+                : error
+                    ? <ErrorModal />
+                    : <CategorySectionEmpty />
             }
-            { hasError && <ErrorModal closeErrorModal={onCloseErrorModal}/> }
         </div>
     )
 }

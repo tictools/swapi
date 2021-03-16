@@ -7,14 +7,18 @@
   "license": "MIT",
   "scripts": {
     "build": "webpack --mode production",
-    "start:dev-server": "webpack serve --config ./webpack.config.js --mode development",
+    "start:dev-server": "webpack serve --config ./webpack.config.js --hot --mode development",
+    "start": "node server/index.js",
     "test": "jest --config test/jest.config.js"
   },
   "dependencies": {
+    "core-js": "^3.9.1",
+    "express": "^4.17.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
-    "react-app-polyfill": "^2.0.0",
-    "react-dom": "^17.0.1"
+    "react-dom": "^17.0.1",
+    "react-router-dom": "^5.2.0",
+    "regenerator-runtime": "^0.13.7"
   },
   "devDependencies": {
     "@babel/core": "^7.13.8",

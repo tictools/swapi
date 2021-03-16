@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { DEFAULT_STRING, INITIAL_VALUE } from '../../constants'
+import styles from './filter-bar.css'
 
 const propTypes = {
     labels: PropTypes.object.isRequired,
@@ -19,6 +20,7 @@ const propTypes = {
 export const FilterBar = ({labels, onInputChange, onOptionChange}) => {
     const [inputValue, setInputValue] = useState(DEFAULT_STRING.EMPTY)
     const [inputValueDebounced, setInputValueDebounced] = useState(DEFAULT_STRING.EMPTY)
+    const [inputOnceUpdated, setInputOnceUpdated] = useState(false)
     const optionName = labels.name || labels.title
     const optionQuantity = labels.quantity
 
@@ -40,6 +42,7 @@ export const FilterBar = ({labels, onInputChange, onOptionChange}) => {
 
     useEffect(() => {
         const timerId = setTimeout(() => {
+            !inputOnceUpdated && setInputOnceUpdated(true)
             setInputValueDebounced(inputValue)
         }, 500)
 
@@ -49,30 +52,28 @@ export const FilterBar = ({labels, onInputChange, onOptionChange}) => {
     }, [inputValue])
 
     useEffect(() => {
-        !!inputValue && onInputChange(inputValueDebounced)
+        inputOnceUpdated && onInputChange(inputValueDebounced)
     }, [inputValueDebounced])
 
     return (
-        <div>
-            <div>
-                <div>
-                    <label htmlFor='option-selector'>Order by</label>
+            <div className={styles['filter-bar__container']}>
+                <div className={styles['filter-bar__selector']}>
+                    <label htmlFor='option-selector'>Order by:</label>
                     <select id='option-selector' onChange={handleSelectChange}>
                         <option>{DEFAULT_STRING.OPTION}</option>
                         <option value={optionName}>{optionName}</option>
-                        <option value={optionQuantity}>{`Number of ${optionQuantity}`}</option>
+                        <option value={optionQuantity}>{`number of ${optionQuantity}`}</option>
                     </select>
                 </div>
-                <div>
-                    <label htmlFor={'input-selector'}>Filter by name</label>
+                <div className={styles['filter-bar__input']}>
+                    <label htmlFor={'input-selector'}>Filter by name:</label>
                     <input
                         type="text" id='input-selector'
                         value={inputValue}
                         onChange={handleInputChange} />
-                        <button onClick={resetInputValue}>x</button>
+                    <button onClick={resetInputValue}>x</button>
                 </div>
             </div>
-        </div>
     )
 }
 

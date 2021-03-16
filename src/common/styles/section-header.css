@@ -1,0 +1,12 @@
+@import "./common.css";
+
+.section-header {
+    background-color: var(--grey-75);
+    color: var(--star-wars--yellow-100);
+    border-radius: 10px;
+    font-size: 2rem;
+    padding: 1rem;
+    text-align: center;
+    text-transform: uppercase;
+    width: var(--width-100);
+}
