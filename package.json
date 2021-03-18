@@ -30,7 +30,7 @@
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.6",
     "html-webpack-plugin": "^5.2.0",
-    "identity-obj-proxy": "^3.0.0",
+    "identity-obj-proxy": "^3.0.0",   
     "jest": "^26.6.3",
     "jest-css-modules-transform": "^4.2.0",
     "react-test-renderer": "^17.0.1",
@@ -39,6 +39,9 @@
     "webpack": "^5.24.3",
     "webpack-cli": "^4.5.0",
     "webpack-dev-server": "^3.11.2"
+  },
+  "eslintConfig": {
+    "extends": "./node_modules/standard/eslintrc.json"
   },
   "browserslist": [
     ">0.2%",
