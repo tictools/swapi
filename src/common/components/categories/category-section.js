@@ -9,9 +9,9 @@ import { Loader } from '../loader/loader'
 import styles from './category-section.css'
 
 const propTypes = {
-    category: PropTypes.string.isRequired,
-    data: PropTypes.array.isRequired,
-    isLoading: PropTypes.bool.isRequired
+  category: PropTypes.string.isRequired,
+  data: PropTypes.array.isRequired,
+  isLoading: PropTypes.bool.isRequired
 }
 /**
  * Functional component that gets a category, a data array and a isLoading boolean
@@ -23,131 +23,133 @@ const propTypes = {
  * @returns {JSX.Element}
  */
 export class CategorySection extends React.Component {
-    constructor(props){
-        super(props)
-        this.state = {
-            filteredData: INITIAL_VALUE.LIST,
-            labels: {
-                name: DEFAULT_STRING.EMPTY,
-                quantity: DEFAULT_STRING.EMPTY
-            },
-            sorter: INITIAL_VALUE.NULL
-        }
-        this.handleFilter = this.handleFilter.bind(this)
-        this.handleSort = this.handleSort.bind(this)
-        this.sortData = this.sortData.bind(this)
-        this.resetSortData = this.resetSortData.bind(this)
-        this.filterData = this.filterData.bind(this)
-        this.resetFilterData = this.resetFilterData.bind(this)
+  constructor (props) {
+    super(props)
+    this.state = {
+      filteredData: INITIAL_VALUE.LIST,
+      labels: {
+        name: DEFAULT_STRING.EMPTY,
+        quantity: DEFAULT_STRING.EMPTY
+      },
+      sorter: INITIAL_VALUE.NULL
     }
+    this.handleFilter = this.handleFilter.bind(this)
+    this.handleSort = this.handleSort.bind(this)
+    this.sortData = this.sortData.bind(this)
+    this.resetSortData = this.resetSortData.bind(this)
+    this.filterData = this.filterData.bind(this)
+    this.resetFilterData = this.resetFilterData.bind(this)
+  }
 
-    componentDidMount() {
-        const [item] = this.props.data
-        const [nameKey, quantityKey] = (Object.keys(item))
-        this.setState({ labels:{
-                name:nameKey,
-                quantity:quantityKey
-            }})
-    }
+  componentDidMount () {
+    const [item] = this.props.data
+    const [nameKey, quantityKey] = (Object.keys(item))
+    this.setState({
+      labels: {
+        name: nameKey,
+        quantity: quantityKey
+      }
+    })
+  }
 
-    componentDidUpdate(prevProps){
-        const [item] = prevProps.data
-        const [nameKey, quantityKey] = (Object.keys(item))
-        if(prevProps !== this.props){
-            this.setState({
-                labels:{
-                    name:nameKey,
-                    quantity:quantityKey
-                },
-                filteredData: INITIAL_VALUE.LIST
-            })
-        }
+  componentDidUpdate (prevProps) {
+    const [item] = prevProps.data
+    const [nameKey, quantityKey] = (Object.keys(item))
+    if (prevProps !== this.props) {
+      this.setState({
+        labels: {
+          name: nameKey,
+          quantity: quantityKey
+        },
+        filteredData: INITIAL_VALUE.LIST
+      })
     }
+  }
 
-    render(){
-        const { labels, filteredData } = this.state
-        const { category, data, isLoading } = this.props
-        return (
-            <section className={styles['category-section__container']}>
-                { isLoading
-                    ?   <Loader/>
-                    :   <CategoryList title={category}>
-                            <FilterBar
-                                labels={labels}
-                                onInputChange={this.handleFilter}
-                                onOptionChange={this.handleSort}/>
-                            <CategoryItems
-                                items={data}
-                                data={this.getDataOrFilteredItems()}
-                                filteredData={filteredData}
-                                labels={labels}/>
-                        </CategoryList>
-                }
-            </section>
-        )
-    }
+  render () {
+    const { labels, filteredData } = this.state
+    const { category, data, isLoading } = this.props
+    return (
+      <section className={styles['category-section__container']}>
+        {isLoading
+          ? <Loader />
+          : <CategoryList title={category}>
+            <FilterBar
+              labels={labels}
+              onInputChange={this.handleFilter}
+              onOptionChange={this.handleSort}
+            />
+            <CategoryItems
+              items={data}
+              data={this.getDataOrFilteredItems()}
+              filteredData={filteredData}
+              labels={labels}
+            />
+          </CategoryList>}
+      </section>
+    )
+  }
 
-    handleFilter(filter){
-        const { sorter } = this.state
-        this.isFilterValid(filter)
-            ? this.filterData(filter)
-            : this.resetFilterData(sorter)
-    }
+  handleFilter (filter) {
+    const { sorter } = this.state
+    this.isFilterValid(filter)
+      ? this.filterData(filter)
+      : this.resetFilterData(sorter)
+  }
 
-    isFilterValid(filter){
-        return filter !== DEFAULT_STRING.EMPTY
-    }
+  isFilterValid (filter) {
+    return filter !== DEFAULT_STRING.EMPTY
+  }
 
-    filterData(filter){
-        const dataToFilter = this.getDataOrFilteredItems()
-        const filteredData = filterArrayByName(filter, dataToFilter)
-        this.setState({
-            filteredData
-        })
-    }
+  filterData (filter) {
+    const dataToFilter = this.getDataOrFilteredItems()
+    const filteredData = filterArrayByName(filter, dataToFilter)
+    this.setState({
+      filteredData
+    })
+  }
 
-    resetFilterData(sorter){
-        const { data } = this.props
-        this.sortData(sorter, data)
-    }
+  resetFilterData (sorter) {
+    const { data } = this.props
+    this.sortData(sorter, data)
+  }
 
-    handleSort(sorter){
-        const { data } = this.props
-        this.isSorterValid(sorter)
-            ? this.sortData(sorter, data)
-            : this.resetSortData()
-    }
+  handleSort (sorter) {
+    const { data } = this.props
+    this.isSorterValid(sorter)
+      ? this.sortData(sorter, data)
+      : this.resetSortData()
+  }
 
-    isSorterValid(sorter){
-        return sorter !== INITIAL_VALUE.NULL
-    }
+  isSorterValid (sorter) {
+    return sorter !== INITIAL_VALUE.NULL
+  }
 
-    sortData(sorter, data){
-        let sortedData = sortArray(data, sorter)
-        sortedData = this.shouldBeReversed(sorter) ? sortedData.reverse() : sortedData
-        this.setState({
-            sorter,
-            filteredData: sortedData
-        })
-    }
+  sortData (sorter, data) {
+    let sortedData = sortArray(data, sorter)
+    sortedData = this.shouldBeReversed(sorter) ? sortedData.reverse() : sortedData
+    this.setState({
+      sorter,
+      filteredData: sortedData
+    })
+  }
 
-    resetSortData(){
-        this.setState({
-            sorter: INITIAL_VALUE.NULL,
-            filteredData: INITIAL_VALUE.LIST
-        })
-    }
+  resetSortData () {
+    this.setState({
+      sorter: INITIAL_VALUE.NULL,
+      filteredData: INITIAL_VALUE.LIST
+    })
+  }
 
-    shouldBeReversed(option){
-        return (option === MAPPED_ITEMS_RESOURCE.NAME_AND_FILM[1] || option === MAPPED_ITEMS_RESOURCE.TITLE_AND_CHARACTERS[1])
-    }
+  shouldBeReversed (option) {
+    return (option === MAPPED_ITEMS_RESOURCE.NAME_AND_FILM[1] || option === MAPPED_ITEMS_RESOURCE.TITLE_AND_CHARACTERS[1])
+  }
 
-    getDataOrFilteredItems(){
-        const { filteredData } = this.state
-        const { data } = this.props
-        return !!filteredData.length ? filteredData : data
-    }
+  getDataOrFilteredItems () {
+    const { filteredData } = this.state
+    const { data } = this.props
+    return filteredData.length ? filteredData : data
+  }
 }
-
 
 CategorySection.propTypes = propTypes

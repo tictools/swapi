@@ -7,7 +7,5 @@ const app = express()
 app.use(express.static(path.join(process.cwd(), 'dist')))
 
 app.listen(PORT, () => {
-    console.log(`Sever up and running in port ${PORT} ...`)
+  console.log(`Sever up and running in port ${PORT} ...`)
 })
-
-

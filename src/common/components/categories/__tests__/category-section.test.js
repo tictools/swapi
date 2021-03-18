@@ -10,191 +10,191 @@ import { CategoryItems } from '../category-items'
 createEnzymeAdapter()
 
 describe('CategorySection', () => {
-    const EXPECTED = {
-        RENDERED_LENGTH: 1,
-        NON_RENDERED_LENGTH: 0,
+  const EXPECTED = {
+    RENDERED_LENGTH: 1,
+    NON_RENDERED_LENGTH: 0
+  }
+  const mockedBaseProps = {
+    category: 'foo',
+    data: [{ name: 'bar', films: 8 }],
+    isLoading: false
+  }
+  const mockedPropsWithData = {
+    ...mockedBaseProps,
+    data: [{ name: 'buzz', films: 1 }, { name: 'bar', films: 2 }]
+  }
+
+  const [sorterName] = MAPPED_ITEMS_RESOURCE.NAME_AND_FILM
+
+  test('should render properly CategoryList when isLoading is false ', () => {
+    const wrapper = shallow(<CategorySection {...mockedBaseProps} />)
+    const categoryList = wrapper.find(CategoryList)
+    const loader = wrapper.find(Loader)
+    const itemsList = wrapper.find(CategoryItems)
+
+    expect(categoryList.props().title).toBe('foo')
+    expect(itemsList.props().items).toBeInstanceOf(Array)
+    expect(loader).toHaveLength(EXPECTED.NON_RENDERED_LENGTH)
+  })
+
+  test('should render properly CategoryList when isLoading is true ', () => {
+    const mockedBasePropsWithIsLoadingTrue = {
+      ...mockedBaseProps,
+      isLoading: true
     }
-    const mockedBaseProps = {
-        category: 'foo',
-        data: [{ name: 'bar', films: 8 }],
-        isLoading: false
+
+    const wrapper = shallow(<CategorySection {...mockedBasePropsWithIsLoadingTrue} />)
+    const categoryList = wrapper.find(CategoryList)
+    const loader = wrapper.find(Loader)
+    const itemsList = wrapper.find(CategoryItems)
+
+    expect(categoryList).toHaveLength(EXPECTED.NON_RENDERED_LENGTH)
+    expect(itemsList).toHaveLength(EXPECTED.NON_RENDERED_LENGTH)
+    expect(loader).toHaveLength(EXPECTED.RENDERED_LENGTH)
+  })
+
+  test('componentDidUpdate should call setState', () => {
+    const prevMockedProps = {
+      ...mockedBaseProps,
+      data: [{ title: 'foo', quantity: 10 }]
     }
-    const mockedPropsWithData = {
-        ...mockedBaseProps,
-        data: [{ name: 'buzz', films: 1 }, { name: 'bar', films: 2}]
-    }
 
-    const [sorterName] = MAPPED_ITEMS_RESOURCE.NAME_AND_FILM
+    const wrapper = shallow(<CategorySection {...mockedBaseProps} />)
+    wrapper.instance().componentDidUpdate(prevMockedProps)
+    console.log(wrapper.instance().state.labels)
+    wrapper.instance().componentDidUpdate(prevMockedProps)
+    expect(wrapper.instance().state.labels).toEqual({ name: 'title', quantity: 'quantity' })
+  })
 
-    test('should render properly CategoryList when isLoading is false ', () => {
-        const wrapper = shallow( <CategorySection {...mockedBaseProps}/>)
-        const categoryList = wrapper.find(CategoryList)
-        const loader = wrapper.find(Loader)
-        const itemsList = wrapper.find(CategoryItems)
+  test('handleSort should call sortData when sorter is valid', () => {
+    const wrapper = shallow(<CategorySection {...mockedPropsWithData} />)
 
-        expect(categoryList.props().title).toBe('foo')
-        expect(itemsList.props().items).toBeInstanceOf(Array)
-        expect(loader).toHaveLength(EXPECTED.NON_RENDERED_LENGTH)
-    })
+    const instance = wrapper.instance()
+    instance.isSorterValid = jest.fn(() => !!sorterName)
+    instance.sortData = jest.fn()
+    instance.handleSort(sorterName)
 
-    test('should render properly CategoryList when isLoading is true ', () => {
-        const mockedBasePropsWithIsLoadingTrue = {
-            ...mockedBaseProps,
-            isLoading: true
-        }
+    expect(instance.isSorterValid).toHaveBeenCalled()
+    expect(instance.sortData).toHaveBeenCalled()
+  })
 
-        const wrapper = shallow( <CategorySection {...mockedBasePropsWithIsLoadingTrue}/>)
-        const categoryList = wrapper.find(CategoryList)
-        const loader = wrapper.find(Loader)
-        const itemsList = wrapper.find(CategoryItems)
+  test('handleSort should call resetSortData when sorter is invalid', () => {
+    const sorterName = INITIAL_VALUE.NULL
+    const wrapper = shallow(<CategorySection {...mockedPropsWithData} />)
 
-        expect(categoryList).toHaveLength(EXPECTED.NON_RENDERED_LENGTH)
-        expect(itemsList).toHaveLength(EXPECTED.NON_RENDERED_LENGTH)
-        expect(loader).toHaveLength(EXPECTED.RENDERED_LENGTH)
-    })
+    const instance = wrapper.instance()
+    instance.isSorterValid = jest.fn(() => !!sorterName)
+    instance.resetSortData = jest.fn()
+    instance.handleSort(sorterName)
 
-    test('componentDidUpdate should call setState', () => {
-        const prevMockedProps = {
-            ...mockedBaseProps,
-            data: [{ title: 'foo', quantity: 10 }],
-        }
+    expect(instance.isSorterValid).toHaveBeenCalled()
+    expect(instance.resetSortData).toHaveBeenCalled()
+  })
 
-        const wrapper = shallow( <CategorySection {...mockedBaseProps}/>)
-        wrapper.instance().componentDidUpdate(prevMockedProps)
-        console.log(wrapper.instance().state.labels)
-        wrapper.instance().componentDidUpdate(prevMockedProps)
-        expect(wrapper.instance().state.labels).toEqual({ name: 'title', quantity: 'quantity'})
-    })
+  test('handleFilter should call handleFilter when filter is valid', () => {
+    const filter = 'bar'
+    const wrapper = shallow(<CategorySection {...mockedPropsWithData} />)
 
-    test('handleSort should call sortData when sorter is valid', () => {
-        const wrapper = shallow( <CategorySection {...mockedPropsWithData}/>)
+    const instance = wrapper.instance()
+    instance.isFilterValid = jest.fn(() => !!filter)
+    instance.filterData = jest.fn()
+    instance.handleFilter(filter)
 
-        const instance = wrapper.instance()
-        instance .isSorterValid = jest.fn( () => !!sorterName)
-        instance .sortData = jest.fn()
-        instance.handleSort(sorterName)
+    expect(instance.isFilterValid).toHaveBeenCalled()
+    expect(instance.filterData).toHaveBeenCalled()
+  })
 
-        expect(instance.isSorterValid).toHaveBeenCalled()
-        expect(instance.sortData).toHaveBeenCalled()
-    })
+  test('handleFilter should call resetFilterData when filter is INvalid', () => {
+    const filter = DEFAULT_STRING.EMPTY
+    const wrapper = shallow(<CategorySection {...mockedPropsWithData} />)
 
-    test('handleSort should call resetSortData when sorter is invalid', () => {
-        const sorterName = INITIAL_VALUE.NULL
-        const wrapper = shallow( <CategorySection {...mockedPropsWithData}/>)
+    const instance = wrapper.instance()
+    instance.isFilterValid = jest.fn(() => !!filter)
+    instance.resetFilterData = jest.fn()
+    instance.handleFilter(filter)
 
-        const instance = wrapper.instance()
-        instance .isSorterValid = jest.fn( () => !!sorterName)
-        instance .resetSortData = jest.fn()
-        instance.handleSort(sorterName)
+    expect(instance.isFilterValid).toHaveBeenCalled()
+    expect(instance.resetFilterData).toHaveBeenCalled()
+  })
 
-        expect(instance.isSorterValid).toHaveBeenCalled()
-        expect(instance.resetSortData).toHaveBeenCalled()
-    })
+  test('isFilterValid should return expected value', () => {
+    const wrapper = shallow(<CategorySection {...mockedPropsWithData} />)
+    const instance = wrapper.instance()
 
-    test('handleFilter should call handleFilter when filter is valid', () => {
-        const filter = 'bar'
-        const wrapper = shallow( <CategorySection {...mockedPropsWithData}/>)
+    const validFilter = 'bar'
+    expect(instance.isFilterValid(validFilter)).toBeTruthy()
 
-        const instance = wrapper.instance()
-        instance .isFilterValid = jest.fn( () => !!filter)
-        instance .filterData = jest.fn()
-        instance.handleFilter(filter)
+    const invalidFilter = DEFAULT_STRING.EMPTY
+    expect(instance.isFilterValid(invalidFilter)).toBeFalsy()
+  })
 
-        expect(instance.isFilterValid).toHaveBeenCalled()
-        expect(instance.filterData).toHaveBeenCalled()
-    })
+  test('filterData should call expected methods', () => {
+    const filter = 'bar'
+    const wrapper = shallow(<CategorySection {...mockedPropsWithData} />)
 
-    test('handleFilter should call resetFilterData when filter is INvalid', () => {
-        const filter = DEFAULT_STRING.EMPTY
-        const wrapper = shallow( <CategorySection {...mockedPropsWithData}/>)
+    const instance = wrapper.instance()
+    instance.getDataOrFilteredItems = jest.fn()
+    instance.setState = jest.fn()
 
-        const instance = wrapper.instance()
-        instance .isFilterValid = jest.fn( () => !!filter)
-        instance .resetFilterData = jest.fn()
-        instance.handleFilter(filter)
+    instance.filterData(filter)
+    expect(instance.getDataOrFilteredItems).toHaveBeenCalled()
+    expect(instance.setState).toHaveBeenCalled()
+  })
 
-        expect(instance.isFilterValid).toHaveBeenCalled()
-        expect(instance.resetFilterData).toHaveBeenCalled()
-    })
+  test('sortData should call expected methods', () => {
+    const wrapper = shallow(<CategorySection {...mockedPropsWithData} />)
 
-    test('isFilterValid should return expected value', () => {
-        const wrapper = shallow( <CategorySection {...mockedPropsWithData}/>)
-        const instance = wrapper.instance()
+    const instance = wrapper.instance()
+    instance.shouldBeReversed = jest.fn()
+    instance.setState = jest.fn()
 
-        const validFilter = 'bar'
-        expect(instance.isFilterValid(validFilter)).toBeTruthy()
+    instance.sortData(sorterName)
+    expect(instance.shouldBeReversed).toHaveBeenCalled()
+    expect(instance.setState).toHaveBeenCalled()
+  })
 
-        const invalidFilter = DEFAULT_STRING.EMPTY
-        expect(instance.isFilterValid(invalidFilter)).toBeFalsy()
-    })
+  test('resetFilterData should call expected methods', () => {
+    const wrapper = shallow(<CategorySection {...mockedPropsWithData} />)
 
-    test('filterData should call expected methods', () => {
-        const filter = 'bar'
-        const wrapper = shallow( <CategorySection {...mockedPropsWithData}/>)
+    const instance = wrapper.instance()
+    instance.sortData = jest.fn()
 
-        const instance = wrapper.instance()
-        instance.getDataOrFilteredItems = jest.fn()
-        instance.setState = jest.fn()
+    instance.resetFilterData(sorterName)
+    expect(instance.sortData).toHaveBeenCalled()
+  })
 
-        instance.filterData(filter)
-        expect(instance.getDataOrFilteredItems).toHaveBeenCalled()
-        expect(instance.setState).toHaveBeenCalled()
-    })
+  test('resetSortData should call expected methods', () => {
+    const wrapper = shallow(<CategorySection {...mockedPropsWithData} />)
 
-    test('sortData should call expected methods', () => {
-        const wrapper = shallow( <CategorySection {...mockedPropsWithData}/>)
+    const instance = wrapper.instance()
+    instance.setState = jest.fn()
 
-        const instance = wrapper.instance()
-        instance.shouldBeReversed = jest.fn()
-        instance.setState = jest.fn()
+    instance.resetSortData()
+    expect(instance.setState).toHaveBeenCalled()
+  })
 
-        instance.sortData(sorterName)
-        expect(instance.shouldBeReversed).toHaveBeenCalled()
-        expect(instance.setState).toHaveBeenCalled()
-    })
+  test('isSorterValid should return expected value', () => {
+    const wrapper = shallow(<CategorySection {...mockedPropsWithData} />)
 
-    test('resetFilterData should call expected methods', () => {
-        const wrapper = shallow( <CategorySection {...mockedPropsWithData}/>)
+    const instance = wrapper.instance()
+    const resultWithValidSorter = instance.isSorterValid(sorterName)
+    expect(resultWithValidSorter).toBeTruthy()
 
-        const instance = wrapper.instance()
-        instance.sortData = jest.fn()
+    const resultWithNullSorter = instance.isSorterValid(INITIAL_VALUE.NULL)
+    expect(resultWithNullSorter).toBeFalsy()
+  })
 
-        instance.resetFilterData(sorterName)
-        expect(instance.sortData).toHaveBeenCalled()
-    })
+  test('shouldBeReversed should return expected value', () => {
+    const wrapper = shallow(<CategorySection {...mockedPropsWithData} />)
 
-    test('resetSortData should call expected methods', () => {
-        const wrapper = shallow( <CategorySection {...mockedPropsWithData}/>)
+    const instance = wrapper.instance()
+    const resultWithFilmsOption = instance.shouldBeReversed('films')
+    expect(resultWithFilmsOption).toBeTruthy()
 
-        const instance = wrapper.instance()
-        instance.setState = jest.fn()
+    const resultWithCharactersOption = instance.shouldBeReversed('characters')
+    expect(resultWithCharactersOption).toBeTruthy()
 
-        instance.resetSortData()
-        expect(instance.setState).toHaveBeenCalled()
-    })
-
-    test('isSorterValid should return expected value', () => {
-        const wrapper = shallow( <CategorySection {...mockedPropsWithData}/>)
-
-        const instance = wrapper.instance()
-        const resultWithValidSorter = instance.isSorterValid(sorterName)
-        expect(resultWithValidSorter).toBeTruthy()
-
-        const resultWithNullSorter = instance.isSorterValid(INITIAL_VALUE.NULL)
-        expect(resultWithNullSorter).toBeFalsy()
-    })
-
-    test('shouldBeReversed should return expected value', () => {
-        const wrapper = shallow( <CategorySection {...mockedPropsWithData}/>)
-
-        const instance = wrapper.instance()
-        const resultWithFilmsOption = instance.shouldBeReversed('films')
-        expect(resultWithFilmsOption).toBeTruthy()
-
-        const resultWithCharactersOption = instance.shouldBeReversed('characters')
-        expect(resultWithCharactersOption).toBeTruthy()
-
-        const resultWithInvalidOption = instance.shouldBeReversed('foo')
-        expect(resultWithInvalidOption).toBeFalsy()
-    })
+    const resultWithInvalidOption = instance.shouldBeReversed('foo')
+    expect(resultWithInvalidOption).toBeFalsy()
+  })
 })

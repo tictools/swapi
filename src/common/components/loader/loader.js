@@ -8,12 +8,12 @@ import styles from './loader.css'
  * @returns {JSX.Element}
  */
 export const Loader = () => {
-    return(
-        <div>
-            <div className={styles['loader__icon--spinner']}>
-                <DarthVaderIcon size={150}/>
-            </div>
-            <p>{DEFAULT_STRING.LOADING}</p>
-        </div>
-    )
+  return (
+    <div>
+      <div className={styles['loader__icon--spinner']}>
+        <DarthVaderIcon size={150} />
+      </div>
+      <p>{DEFAULT_STRING.LOADING}</p>
+    </div>
+  )
 }

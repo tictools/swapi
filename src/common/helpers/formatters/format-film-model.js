@@ -1,6 +1,6 @@
 export const formatFilmModel = (film) => {
-    const { title } = film
-    return {
-        title
-    }
+  const { title } = film
+  return {
+    title
+  }
 }

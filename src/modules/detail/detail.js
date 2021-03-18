@@ -10,26 +10,26 @@ import styles from './detail.css'
  * @returns {JSX.Element}
  */
 export const Detail = () => {
-    const { pathname } = useLocation()
-    const {
-        item,
-        resources,
-        error,
-        category,
-        isLoading
-    } = useFetchItem(pathname)
+  const { pathname } = useLocation()
+  const {
+    item,
+    resources,
+    error,
+    category,
+    isLoading
+  } = useFetchItem(pathname)
 
-    return(
-        <section className={styles['detail__container']}>
-            { error
-                ? <ErrorModal/>
-                : <DetailSection {...{
-                    item,
-                    category,
-                    resources,
-                    isLoading
-                }}/>
-            }
-        </section>
-    )
+  return (
+    <section className={styles.detail__container}>
+      {error
+        ? <ErrorModal />
+        : <DetailSection {...{
+          item,
+          category,
+          resources,
+          isLoading
+        }}
+          />}
+    </section>
+  )
 }

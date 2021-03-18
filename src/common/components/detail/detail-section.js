@@ -12,18 +12,19 @@ import styles from './detail-section.css'
  * @param {boolean} isLoading - loading status
  * @returns {JSX.Element}
  */
-export const DetailSection = ({item, category, resources, isLoading}) => {
-    return(
-        <section className={styles['detail-section__container']}>
-            {
+export const DetailSection = ({ item, category, resources, isLoading }) => {
+  return (
+    <section className={styles['detail-section__container']}>
+      {
                 isLoading
-                    ? <Loader/>
-                    : <DetailCard {...{
-                        item,
-                        category,
-                        resources
-                    }}/>
+                  ? <Loader />
+                  : <DetailCard {...{
+                    item,
+                    category,
+                    resources
+                  }}
+                    />
             }
-        </section>
-    )
+    </section>
+  )
 }

@@ -4,11 +4,11 @@ import PropTypes from 'prop-types'
 import styles from './category-items.css'
 
 const propTypes = {
-    data: PropTypes.array.isRequired,
-    labels: PropTypes.shape({
-        name:PropTypes.string,
-        quantity: PropTypes.string
-    }).isRequired
+  data: PropTypes.array.isRequired,
+  labels: PropTypes.shape({
+    name: PropTypes.string,
+    quantity: PropTypes.string
+  }).isRequired
 }
 
 /**
@@ -19,28 +19,31 @@ const propTypes = {
  * @param {object} labels - object with label strings
  * @returns {array<HTMLLIElement>}
  */
-export const CategoryItems = ({data, labels, }) => {
-    const labelName = labels.name || labels.title
-    const labelQuantity = labels.quantity
+export const CategoryItems = ({ data, labels }) => {
+  const labelName = labels.name || labels.title
+  const labelQuantity = labels.quantity
 
-    return (
-        <ul className={styles['category-items__list']}>
-            {
+  return (
+    <ul className={styles['category-items__list']}>
+      {
                 data.map((item) => {
-                    const { resourcePath, index } = item
-                    const URL_DETAIL = `/${resourcePath}/${index}`
-                    return (
-                        <li key={index} className={styles['category-items__card']}>
-                            <p className={styles['category-items__label-name']}>{labelName}:
-                                <span className={styles['category-items__content']}> {item[labelName]}</span></p>
-                            <p className={styles['category-items__label-quantity']}>{labelQuantity}:
-                                <span className={styles['category-items__content']}> {item[labelQuantity]}</span></p>
-                            <Link className={styles['category-items__link']} to={URL_DETAIL}>+</Link>
-                        </li>)
+                  const { resourcePath, index } = item
+                  const URL_DETAIL = `/${resourcePath}/${index}`
+                  return (
+                    <li key={index} className={styles['category-items__card']}>
+                      <p className={styles['category-items__label-name']}>{labelName}:
+                        <span className={styles['category-items__content']}> {item[labelName]}</span>
+                      </p>
+                      <p className={styles['category-items__label-quantity']}>{labelQuantity}:
+                        <span className={styles['category-items__content']}> {item[labelQuantity]}</span>
+                      </p>
+                      <Link className={styles['category-items__link']} to={URL_DETAIL}>+</Link>
+                    </li>
+                  )
                 })
             }
-        </ul>
-    )
+    </ul>
+  )
 }
 
 CategoryItems.propTypes = propTypes

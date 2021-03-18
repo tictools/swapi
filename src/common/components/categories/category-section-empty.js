@@ -9,10 +9,10 @@ import styles from './category-section-empty.css'
  * @returns {JSX.Element}
  */
 export const CategorySectionEmpty = () => {
-    return (
-        <div className={styles['category-section-empty__container']}>
-            <DarthVaderIcon size={150} />
-            <p>{DEFAULT_STRING.EMPTY_CATEGORY}</p>
-        </div>
-    )
+  return (
+    <div className={styles['category-section-empty__container']}>
+      <DarthVaderIcon size={150} />
+      <p>{DEFAULT_STRING.EMPTY_CATEGORY}</p>
+    </div>
+  )
 }

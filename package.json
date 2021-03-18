@@ -9,6 +9,8 @@
     "build": "webpack --mode production",
     "start:dev-server": "webpack serve --config ./webpack.config.js --hot --mode development",
     "start": "node server/index.js",
+    "eslint": "standard .",
+    "eslint:fix": "standard . --fix",
     "test": "jest --config test/jest.config.js"
   },
   "dependencies": {

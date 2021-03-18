@@ -1,15 +1,15 @@
 export {
-    DEFAULT_STRING,
-    CATEGORIES,
-    ITEM_RESOURCE,
-    BASE_URL,
-    MAPPED_ITEMS_RESOURCE
+  DEFAULT_STRING,
+  CATEGORIES,
+  ITEM_RESOURCE,
+  BASE_URL,
+  MAPPED_ITEMS_RESOURCE
 } from './strings'
 
 export {
-    INITIAL_VALUE
+  INITIAL_VALUE
 } from './data'
 
 export {
-    ROUTES
+  ROUTES
 } from './routes'

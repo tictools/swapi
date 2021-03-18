@@ -6,13 +6,13 @@ import { DarthVaderIcon } from '../darth-vader-icon'
 createEnzymeAdapter()
 
 describe('<DarthVaderIcon />', () => {
-    const mockedBaseProps = {
-        size: 150
-    }
+  const mockedBaseProps = {
+    size: 150
+  }
 
-    test('should get the correct DarthVaderIcon path', () => {
-        const wrapper = shallow(<DarthVaderIcon {...mockedBaseProps}/>)
+  test('should get the correct DarthVaderIcon path', () => {
+    const wrapper = shallow(<DarthVaderIcon {...mockedBaseProps} />)
 
-        expect(wrapper.html()).toMatchSnapshot()
-    })
+    expect(wrapper.html()).toMatchSnapshot()
+  })
 })
