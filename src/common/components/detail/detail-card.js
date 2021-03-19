@@ -1,5 +1,5 @@
 import React from 'react'
-import { CATEGORIES, MAPPED_ITEMS_RESOURCE } from '../../constants'
+import { CATEGORIES, MAPPED_ITEMS_RESOURCE, MAPPED_ITEM_KEYS } from '../../constants'
 import PropTypes from 'prop-types'
 import styles from './detail-card.css'
 
@@ -19,22 +19,34 @@ const propTypes = {
  * @returns {JSX.Element}
  */
 export const DetailCard = ({ item, category, resources }) => {
-  const getItemContent = (currentItem) => {
+  const getItemContent = (currentItem, isLabelRendered = true) => {
     const itemEntries = Object.entries(currentItem)
     return (
       itemEntries.map(([label, content], index) => {
         return (
-          <li className={styles['detail__list-item']} key={index}>{label}: {content}</li>)
+          <li
+            key={index}
+            className={styles['detail__list-item']}
+          >
+            <p className={styles['detail__list-item--header']}>
+              {isLabelRendered && `${MAPPED_ITEM_KEYS[label]}`}
+            </p>
+            <p className={styles['detail__list-item--content']}>
+              {content}
+            </p>
+          </li>
+        )
       })
     )
   }
 
   const getResourcesContent = (currentResources) => {
+    const isLabelRendered = false
     return (
       currentResources.map((currentResource, index) => (
         <li key={index}>
           <ul className={styles['detail__list--embedded']}>
-            {getItemContent(currentResource)}
+            {getItemContent(currentResource, isLabelRendered)}
           </ul>
         </li>
       ))

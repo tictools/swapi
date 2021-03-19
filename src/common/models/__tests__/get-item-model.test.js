@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { CATEGORIES } from '../../constants'
 import { getItemModel } from '../get-item-model'
 import { getFilmModel } from '../get-film-model'

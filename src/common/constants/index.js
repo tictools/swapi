@@ -3,7 +3,8 @@ export {
   CATEGORIES,
   ITEM_RESOURCE,
   BASE_URL,
-  MAPPED_ITEMS_RESOURCE
+  MAPPED_ITEMS_RESOURCE,
+  MAPPED_ITEM_KEYS
 } from './strings'
 
 export {

@@ -21,8 +21,6 @@ export const useFetchItem = (pathname) => {
       .then(currentItem => {
         const { resourceToFetch, ...restItem } = getItemModel(RESOURCE_PATH, currentItem)
         const formattedDataWithHttpsProtocol = resourceToFetch.map(item => item.replace('http', 'https'))
-        console.log(resourceToFetch)
-        console.log(formattedDataWithHttpsProtocol)
         const promisedResources = formattedDataWithHttpsProtocol.map(filmURL => fetchData(filmURL, undefined, undefined))
         setItem(restItem)
         return Promise.all(promisedResources)

@@ -61,7 +61,6 @@ describe('CategorySection', () => {
 
     const wrapper = shallow(<CategorySection {...mockedBaseProps} />)
     wrapper.instance().componentDidUpdate(prevMockedProps)
-    console.log(wrapper.instance().state.labels)
     wrapper.instance().componentDidUpdate(prevMockedProps)
     expect(wrapper.instance().state.labels).toEqual({ name: 'title', quantity: 'quantity' })
   })
