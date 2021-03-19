@@ -1,7 +1,10 @@
 module.exports = {
   bail: false,
   collectCoverage: true,
-  coveragePathIgnorePatterns: ['fetch'],
+  coveragePathIgnorePatterns: [
+    'fetch',
+    '-mock.js'
+  ],
   moduleNameMapper: {
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy'
   },

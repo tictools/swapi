@@ -9,7 +9,7 @@ export const getFilmModel = (film) => {
   } = film
 
   return {
-    title,
+    header: title,
     episode_id,
     opening_crawl,
     director,

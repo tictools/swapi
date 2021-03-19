@@ -13,7 +13,7 @@ export const getPlanetModel = (planet) => {
   } = planet
 
   return {
-    name,
+    header: name,
     rotation_period,
     orbital_period,
     diameter,

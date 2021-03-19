@@ -13,7 +13,7 @@ export const getVehicleModel = (vehicle) => {
   } = vehicle
 
   return {
-    name,
+    header: name,
     model,
     manufacturer,
     cost_in_credits,

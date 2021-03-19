@@ -12,7 +12,7 @@ export const getPeopleModel = (people) => {
   } = people
 
   return {
-    name,
+    header: name,
     height,
     mass,
     hair_color,

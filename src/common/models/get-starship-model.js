@@ -14,7 +14,7 @@ export const getStarshipModel = (starship) => {
   } = starship
 
   return {
-    name,
+    header: name,
     model,
     manufacturer,
     crew,

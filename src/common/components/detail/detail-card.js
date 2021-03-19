@@ -1,5 +1,9 @@
 import React from 'react'
-import { CATEGORIES, MAPPED_ITEMS_RESOURCE, MAPPED_ITEM_KEYS } from '../../constants'
+import {
+  CATEGORIES,
+  MAPPED_ITEMS_RESOURCE,
+  MAPPED_ITEM_KEYS
+} from '../../constants'
 import PropTypes from 'prop-types'
 import styles from './detail-card.css'
 
@@ -23,7 +27,8 @@ export const DetailCard = ({ item, category, resources }) => {
     const itemEntries = Object.entries(currentItem)
     return (
       itemEntries.map(([label, content], index) => {
-        return (
+        const isHeader = label === 'header'
+        return !isHeader && (
           <li
             key={index}
             className={styles['detail__list-item']}
@@ -36,7 +41,7 @@ export const DetailCard = ({ item, category, resources }) => {
             </p>
           </li>
         )
-      })
+      }).filter(Boolean)
     )
   }
 
@@ -61,9 +66,10 @@ export const DetailCard = ({ item, category, resources }) => {
     )
   }
 
-  const getTitleFromHeaderData = (headerData) => headerData && headerData.props.children[2]
-  const [headerData, ...restData] = getItemContent(item)
-  const header = getTitleFromHeaderData(headerData)
+  const getTitleFromHeaderData = (item) => item.header
+
+  const data = getItemContent(item)
+  const header = getTitleFromHeaderData(item)
 
   return (
     <div className={styles.detail__container}>
@@ -74,7 +80,7 @@ export const DetailCard = ({ item, category, resources }) => {
             general details
           </p>
           <ul className={styles.detail__list}>
-            {restData}
+            {data}
           </ul>
         </div>
         <div className={styles['detail__container-list']}>

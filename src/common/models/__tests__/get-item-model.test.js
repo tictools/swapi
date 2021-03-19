@@ -7,7 +7,7 @@ import { getPlanetModel } from '../get-planet-model'
 import { getSpecyModel } from '../get-specy-model'
 import { getStarshipModel } from '../get-starship-model'
 import { getVehicleModel } from '../get-vehicle-model'
-import { mockedItem } from './mocks/item-values-mock'
+import { mockedItem } from '../../mocks/item-values-mock'
 
 describe('getItemModel', () => {
   test('should return expected keys when category is FILMS', () => {

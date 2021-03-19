@@ -13,7 +13,7 @@ export const getSpecyModel = (specy) => {
   } = specy
 
   return {
-    name,
+    header: name,
     classification,
     designation,
     average_height,

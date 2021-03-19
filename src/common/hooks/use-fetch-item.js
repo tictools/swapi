@@ -31,6 +31,7 @@ export const useFetchItem = (pathname) => {
             ? populatedResources.map(formatCharacterModel)
             : populatedResources.map(formatFilmModel)
         )
+        console.log('formattedResources => ', formattedResources)
         setResources(formattedResources)
         setIsLoading(false)
       })

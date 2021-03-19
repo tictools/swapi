@@ -1,5 +1,6 @@
+/* eslint-disable no-undef */
 import { MAPPED_ITEMS_RESOURCE } from '../../../constants'
-import { mockedItem } from '../../../models/__tests__/mocks/item-values-mock'
+import { mockedItem } from '../../../mocks/item-values-mock'
 import { formatCharacterModel } from '../format-character-model'
 
 describe('formatCharacterModel', () => {

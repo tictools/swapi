@@ -1,4 +1,4 @@
-import { mockedItem } from '../../../models/__tests__/mocks/item-values-mock'
+import { mockedItem } from '../../../mocks/item-values-mock'
 import { formatFilmModel } from '../format-film-model'
 
 describe('formatFilmModel', () => {
