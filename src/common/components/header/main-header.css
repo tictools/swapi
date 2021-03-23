@@ -11,19 +11,20 @@
     border-top: 1px solid var(--grey-50);
     border-bottom: 1px solid var(--grey-50);
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     padding: .5rem;
     width: 100%;
 }
 
 .main-header__link-container {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     width: 50%;
 }
 
 .main-header__link {
     composes: link-base from "../../../common/styles/link.css";
+    margin: 0.25rem 1rem;
     text-transform: uppercase;
     width: 40%;
 }
