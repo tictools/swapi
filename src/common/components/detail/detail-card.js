@@ -10,8 +10,7 @@ import styles from './detail-card.css'
 const propTypes = {
   category: PropTypes.string.isRequired,
   item: PropTypes.object.isRequired,
-  resources: PropTypes.array.isRequired,
-  isLoading: PropTypes.bool.isRequired
+  resources: PropTypes.array.isRequired
 }
 
 /**
