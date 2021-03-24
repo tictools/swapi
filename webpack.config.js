@@ -33,7 +33,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'SWAPI',
+      title: 'RAPPSWAPI',
       template: './src/index.html',
       hash: true
     })
