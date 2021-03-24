@@ -1,7 +1,8 @@
 # RAPPSWAPI: May the front be with you
 
-## A React Application prepared to consume SWAPI data
-### URL: [https://rappswapi.herokuapp.com/#/](https://rappswapi.herokuapp.com/#/)
+## A React Application prepared to consume SWAPI data.
+### Compatible with IE11+.
+### [ [ https://rappswapi.herokuapp.com/#/ ] ](https://rappswapi.herokuapp.com/#/)
 <img src="./src/common/images/svg/yoda.svg" alt="Yoda" width="200px">
 
 ### Abstract
